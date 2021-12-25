@@ -31,7 +31,7 @@ class API
         $this->online = $this->serverOnline();
 
         // Check if there is a protocol file for the set game version
-        $version = settings('server_version', '156');
+        $version = config('pw-config.server_version', '156');
 
         if (file_exists(__DIR__ . '/../../protocols/pw_v' . $version . '.php')) {
             require(__DIR__ . '/../../protocols/pw_v' . $version . '.php');
@@ -49,7 +49,7 @@ class API
      */
     public function serverOnline()
     {
-        return @fsockopen(settings('server_ip', '127.0.0.1'), config('pw-api.ports.client'), $errCode, $errStr, 1) ? TRUE : FALSE;
+        return @fsockopen(config('pw-config.server_ip', '127.0.0.1'), config('pw-api.ports.client'), $errCode, $errStr, 1) ? TRUE : FALSE;
     }
 
     /**
@@ -59,7 +59,7 @@ class API
      */
     public function getRole($role)
     {
-        if (setting('server.version', '156') == '07') {
+        if (config('pw-config.server_version', '156') == '07') {
             $user['base'] = $this->getRoleBase($role);
             $user['status'] = $this->getRoleStatus($role);
             $user['pocket'] = $this->getRoleInventory($role);
@@ -284,7 +284,7 @@ class API
             $params['storehouse']['material'] = array();
             $params['storehouse']['material'][] = $tmp;
         }
-        if (setting('server.version', '156') != '07') {
+        if (config('pw-config.server_version', '156') != '07') {
             $pack = pack("NNC*", -1, $role, 1) . $this->gamed->marshal($params, $this->data['role']);
 
             return $this->gamed->SendToGamedBD($this->gamed->createHeader($this->data['code']['putRole'], $pack));
@@ -575,7 +575,7 @@ class API
         $port_list = config('pw-api.ports');
         foreach ($port_list as $name => $port) {
             $ports[$name]['port'] = $port;
-            $ports[$name]['open'] = @fsockopen(setting('server.ip', '127.0.0.1'), $port, $errCode, $errStr, 1) ? TRUE : FALSE;
+            $ports[$name]['open'] = @fsockopen(config('pw-config.server_ip', '127.0.0.1'), $port, $errCode, $errStr, 1) ? TRUE : FALSE;
         }
         return $ports;
     }

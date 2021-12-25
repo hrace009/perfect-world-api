@@ -38,7 +38,7 @@ class Gamed
 
     public function unpackCuint($data, &$p)
     {
-        if (settings('server_version', '101') != '07') {
+        if (config('pw-config.server_version', '101') != '07') {
             $hex = hexdec(bin2hex(substr($data, $p, 1)));
             $min = 0;
             if ($hex < 0x80) {
@@ -175,9 +175,9 @@ class Gamed
 
     public function SendToSocket($data, $port, $RecvAfterSend = false, $buf = null)
     {
-        if (@fsockopen(settings('server_ip', '127.0.0.1'), $port, $errCode, $errStr, 1)) {
+        if (@fsockopen(config('pw-config.server_ip', '127.0.0.1'), $port, $errCode, $errStr, 1)) {
             $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-            socket_connect($sock, settings('server_ip', '127.0.0.1'), $port);
+            socket_connect($sock, config('pw-config.server_ip', '127.0.0.1'), $port);
 
 
             if (config('pw-api.s_block')) socket_set_block($sock);

@@ -31,6 +31,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../../config/pw-api.php' => config_path('pw-api.php'),
+            __DIR__ . '/../../config/pw-api.php' => config_path('pw-config.php'),
         ]);
 
         $this->publishes([
