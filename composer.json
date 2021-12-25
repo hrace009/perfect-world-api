@@ -2,7 +2,7 @@
   "name": "hrace009/perfect-world-api",
   "description": "A package to retrieve data from a Perfect World game server",
   "homepage": "https://github.com/hrace009/perfect-world-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "perfect world",
     "perfect world api",
@@ -21,7 +21,7 @@
   },
   "require": {
     "php": "^7.4|^8.0",
-    "hrace009/laravel-settings": "^1.0.1"
+    "illuminate/support": "5.*|6.*|7.*|8.*|9.*|10.*"
   },
   "autoload": {
     "psr-0": {
